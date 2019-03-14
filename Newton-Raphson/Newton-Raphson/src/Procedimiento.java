@@ -17,9 +17,9 @@ public class Procedimiento {
         this.der = new double[100][2];
         this.der = der;
         this.pot = pot;
-         for(int i=1; i<=pot; i++){
-            der[i-1][0] = termino[i][0]*termino[i][1];
-            der[i-1][1] = termino[i][1]-1;
+         for(int i=0; i<=pot; i++){
+            der[i][0] = termino[i][0]*termino[i][1];
+            der[i][1] = termino[i][1]-1;
         }
     }
     
@@ -37,7 +37,7 @@ public class Procedimiento {
         
         x = x - (res/res_der);
         
-        if(Math.abs(res)<=.0000001){
+        if(Math.abs(res)<=.000001){
             return xi;
         }
         else{
