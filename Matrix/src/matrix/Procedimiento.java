@@ -53,12 +53,10 @@ class Procedimiento {
     
     @Override
     public String toString(){
+        
         String matrixst = "";
-        if(this==null){
-            matrixst = "error";
-        }
-        else{
-            for(i = 0; i < tamaño; i++){
+        if(this!=null){
+           for(i = 0; i < tamaño; i++){
                 matrixst += "|";
                 for(j = 0; j < tamaño; j++ ){
                     matrixst += matriz[i][j];
@@ -67,15 +65,20 @@ class Procedimiento {
                 matrixst += "|\n";
             }
         }
+        else{
+             matrixst = "error";
+        }
         
         return matrixst;
     }
+    
     public Procedimiento suma(Procedimiento mat_1){
         if(mat_1.tamaño == this.tamaño){
             double[][] r = new double [this.tamaño][this.tamaño];
             for(i = 0; i<tamaño;i++){
                 for(j=0;j<tamaño;j++){
                     r[i][j] = matriz[i][j] + mat_1.matriz[i][j];
+                    
                 }
             }
             return new Procedimiento (r);
@@ -125,5 +128,7 @@ class Procedimiento {
         return new Procedimiento (r);
     }
     
- 
+   /* public Procedimiento inv(){
+        
+    }*/
 }

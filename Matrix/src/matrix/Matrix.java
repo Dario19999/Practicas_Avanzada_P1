@@ -18,11 +18,16 @@ public class Matrix {
      */
     public static void main(String[] args) {
         Matrix menu = new Matrix();
+        
         menu.menu();
+        
        
     }
     
     public void menu(){
+        mat_1 = entrada();
+        mat_2 = entrada();
+        
          int opc;
         
         do{
@@ -39,16 +44,16 @@ public class Matrix {
 
             switch(opc){
                 case 1:
-                    System.out.println("\n res:\n" + mat_1.suma(mat_2));
+                    System.out.println("\n res = " +mat_1.suma(mat_2).toString());
                     break;
                 case 2:
-                    System.out.println("\n res:\n" + mat_1.resta(mat_2));
+                    System.out.println("\n res = " + mat_1.resta(mat_2));
                     break;
                 case 3:
-                    System.out.println("\n res:\n" + mat_1.multi(mat_2));
+                    System.out.println("\n res = " + mat_1.multi(mat_2));
                     break;
                 case 4:
-                    System.out.println("\n res:\n" + mat_1.tras());
+                    System.out.println("\n res = " + mat_1.tras());
                     break;
                 /*case 5:
                     System.out.println("\n res:\n" + mat_1.inv());
@@ -58,12 +63,12 @@ public class Matrix {
                     break;*/
                     
             }
-        }while(opc!=0);
+        }while(opc!=9);
     }
     
     public Procedimiento entrada(){
         
-        System.out.println("ingresar tamaño de las dos matrices");
+        System.out.println("ingresar tamaño de la  matriz");
         int tamaño = in.nextInt();
         
         Procedimiento mat = new Procedimiento(tamaño);
