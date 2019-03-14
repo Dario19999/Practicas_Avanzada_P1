@@ -5,7 +5,6 @@
  */
 package matrix;
 import java.util.Scanner;
-import java.util.Arrays;
 
 /**
  *
@@ -40,26 +39,40 @@ public class Matrix {
 
             switch(opc){
                 case 1:
-                    
+                    System.out.println("\n res:\n" + mat_1.suma(mat_2));
+                    break;
+                case 2:
+                    System.out.println("\n res:\n" + mat_1.resta(mat_2));
+                    break;
+                case 3:
+                    System.out.println("\n res:\n" + mat_1.multi(mat_2));
+                    break;
+                case 4:
+                    System.out.println("\n res:\n" + mat_1.tras());
+                    break;
+                /*case 5:
+                    System.out.println("\n res:\n" + mat_1.inv());
+                    break;*/
+                /*case 6:
+                    System.out.println("\n res:\n" + mat_1.deter(mat_2));
+                    break;*/
                     
             }
         }while(opc!=0);
     }
     
-    public Procedimiento entrada(String tx){
-        tx = (tx == null)? "" : tx;
+    public Procedimiento entrada(){
         
-        System.out.println("ingrese el tamaño de la " + tx + " matriz");
-        String tamaño = in.next();
+        System.out.println("ingresar tamaño de las dos matrices");
+        int tamaño = in.nextInt();
         
-        int [] tamañoInt = Arrays.stream(tamaño.split("x|\\*")).mapToInt(Integer::parseInt).toArray();
-        Procedimiento mat = new Procedimiento(tamañoInt[0], tamañoInt[1]);
+        Procedimiento mat = new Procedimiento(tamaño);
         
-        for (int i = 0; i < tamañoInt[0]; i++) {
-            for (int j = 0; j < tamañoInt[1]; j++) {
-                System.out.println("Ingrese el valor de la posicion [" + i + ", " + j+ "]");
-                double val = in.nextInt();
-                mat.addElement(i, j, val);
+        for (int i = 0; i < tamaño; i++) {
+            for (int j = 0; j < tamaño; j++) {
+                System.out.println("Ingrese el dato de la celda [" + i + ", " + j+ "]");
+                double dato = in.nextInt();
+                mat.agregar(i, j, dato);
             }
         }
         
