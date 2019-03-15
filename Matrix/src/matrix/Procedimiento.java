@@ -21,7 +21,7 @@ class Procedimiento {
     
     public Procedimiento(double[][] matriz){
         this.matriz = matriz;
-        this.tamaño = matriz.length;
+        this.tamaño = matriz[0].length;
 
     }
     
@@ -106,11 +106,13 @@ class Procedimiento {
     }
     
     public Procedimiento multi(Procedimiento mat_1){
-        if(mat_1.tamaño == this.tamaño){
+        if(mat_1.matriz.length == this.tamaño){
             double[][] r = new double [this.tamaño][this.tamaño];
             for(i = 0; i<tamaño;i++){
                 for(j=0;j<tamaño;j++){
-                    r[i][j] = matriz[i][j] * mat_1.matriz[i][j];
+                    for(int it = 0; it<mat_1.tamaño; it++){
+                        r[i][j] += this.matriz[i][it] * mat_1.matriz[it][j];
+                    }
                 }
             }
             return new Procedimiento (r);
@@ -133,14 +135,14 @@ class Procedimiento {
     public Procedimiento inv(){
      
         if(this.matriz.length == this.matriz[0].length){
-        double [][] r = new double [this.matriz.length][this.matriz[0].length*2];
+        double [][] r = new double [this.matriz.length*2][this.matriz[0].length*2];
         for (j = 0; j < this.matriz[0].length*2; j++) {
             for (i = 0; i < this.matriz.length; i++) {
                 r[i][j] = (j < this.matriz[0].length) ? this.matriz[i][j] : (j - this.matriz[0].length != i) ? 0 : 1;
             }
         }
-
-        for (int it = 0; i< this.tamaño; i++) {
+        
+        for (int it = 0; it < this.tamaño; it++) {
             double piv = r[it][it];
             double[][] mult = new double[this.matriz.length][this.matriz[0].length];
 
@@ -149,7 +151,7 @@ class Procedimiento {
             }
 
             for (j = 0; j < this.matriz[0].length*2; j++) {
-                r[i][j] = r[i][j] / piv;
+                r[it][j] = r[it][j] / piv;
             }
 
             for (i = 0; i < this.matriz.length; i++) {
@@ -160,6 +162,7 @@ class Procedimiento {
                     }
                 }
             }
+            System.out.println(new Procedimiento(r));
         }
         return new Procedimiento(r);
         }else{
