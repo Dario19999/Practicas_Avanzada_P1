@@ -44,7 +44,7 @@ public class Matrix {
 
             switch(opc){
                 case 1:
-                    System.out.println("\n res = " +mat_1.suma(mat_2).toString());
+                    System.out.println("\n res = " +mat_1.suma(mat_2));
                     break;
                 case 2:
                     System.out.println("\n res = " + mat_1.resta(mat_2));
