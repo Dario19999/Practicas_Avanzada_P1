@@ -14,7 +14,6 @@ class Procedimiento {
     public int i,j;
     public int tamaño;
 
-
     public Procedimiento(int tamaño) {
         matriz = new double[tamaño][tamaño];
         this.tamaño = tamaño;
@@ -22,27 +21,29 @@ class Procedimiento {
     
     public Procedimiento(double[][] matriz){
         this.matriz = matriz;
+        this.tamaño = matriz.length;
+
     }
     
     Procedimiento(Procedimiento m, int pivote_f, int pivote_c)
     {
-        int rows=0, cols=0;
-        tamaño = m.tamaño-1;
-        matriz = new double[tamaño][tamaño];
+        int f=0, c=0;
+        
+        matriz = new double[m.tamaño-1][m.tamaño-1];
         for (int it = 0; it < m.tamaño; it++) 
         {
-            cols = 0;
+            c = 0;
             for (int jt = 0; jt < m.tamaño; jt++) 
             {
                 if(it!=pivote_f && jt!=pivote_c)
                 {
-                    this.matriz[tamaño][tamaño] = m.matriz[i][j];
-                    cols++;
+                    this.matriz[f][c] = m.matriz[it][jt];
+                    c++;
                 }
             }
-            if(i!=pivote_f)
+            if(it!=pivote_f)
             {
-                rows++;
+                f++;
             }
         }
 }
@@ -64,6 +65,7 @@ class Procedimiento {
                 }
                 matrixst += "|\n";
             }
+           System.out.println("");
         }
         else{
              matrixst = "error";
@@ -81,7 +83,7 @@ class Procedimiento {
                     
                 }
             }
-            return new Procedimiento (r);
+            return new Procedimiento(r);
         }
         else{
             return null;
@@ -130,44 +132,51 @@ class Procedimiento {
     
     public Procedimiento inv(){
      
-        double [][] res = new double [this.tamaño][this.tamaño*2];
-        for (j = 0; j < this.tamaño*2; j++) {
-            for (i = 0; i < this.tamaño; i++) {
-                res[i][j] = (i < this.j) ? this.matriz[i][j] : (j - this.tamaño != i) ? 0 : 1;
+        if(this.matriz.length == this.matriz[0].length){
+        double [][] r = new double [this.matriz.length][this.matriz[0].length*2];
+        for (j = 0; j < this.matriz[0].length*2; j++) {
+            for (i = 0; i < this.matriz.length; i++) {
+                r[i][j] = (j < this.matriz[0].length) ? this.matriz[i][j] : (j - this.matriz[0].length != i) ? 0 : 1;
             }
         }
 
         for (int it = 0; i< this.tamaño; i++) {
-            double piv = res[it][it];
-            double[][] mult = new double[this.tamaño][this.tamaño];
+            double piv = r[it][it];
+            double[][] mult = new double[this.matriz.length][this.matriz[0].length];
 
             for (int j = 0; j < mult.length; j++) {
-                mult [j][0]= res[j][it];
+                mult [j][0]= r[j][it];
             }
 
-            for (j = 0; j < this.tamaño*2; j++) {
-                res[i][j] = res[i][j] / piv;
+            for (j = 0; j < this.matriz[0].length*2; j++) {
+                r[i][j] = r[i][j] / piv;
             }
 
-            for (i = 0; i < this.tamaño; i++) {
-                for ( j = 0; j < this.tamaño * 2; j++) {
-                    res[it][j] = (i != it) ? res[i][j] - res[it][j]*mult[i][0] : res[i][j];
-                    if(Double.isNaN(res[i][j]) || Double.isInfinite(res[i][j])){
+            for (i = 0; i < this.matriz.length; i++) {
+                for ( j = 0; j < this.matriz[0].length * 2; j++) {
+                    r[i][j] = (i != it) ? r[i][j] - r[it][j]*mult[i][0] : r[i][j];
+                    if(Double.isNaN(r[i][j]) || Double.isInfinite(r[i][j])){
                         return null;
                     }
                 }
             }
         }
-        return new Procedimiento(res);
+        return new Procedimiento(r);
+        }else{
+            return null;
+                    
+        }
     }
     
     public double deter(Procedimiento mat_1){
-        
-        if(mat_1.tamaño == 1){
+       
+        if(mat_1.matriz.length == 1){
             return mat_1.matriz[0][0];
-        }else if(mat_1.tamaño==2){
+        }
+        else if(mat_1.matriz.length==2){
             return mat_1.matriz[0][0] * mat_1.matriz[1][1] - mat_1.matriz[0][1] * mat_1.matriz[1][0];
-        }else if(mat_1.tamaño == mat_1.tamaño){
+        }
+        else if(mat_1.matriz.length == mat_1.matriz[0].length){
             double acumulate = 0.0;
             for(int i=0; i < mat_1.tamaño; i++){
                 double sign=1.0;
