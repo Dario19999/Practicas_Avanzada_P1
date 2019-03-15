@@ -25,9 +25,7 @@ public class Matrix {
     }
     
     public void menu(){
-        mat_1 = entrada();
-        mat_2 = entrada();
-        
+ 
          int opc;
         
         do{
@@ -44,31 +42,40 @@ public class Matrix {
 
             switch(opc){
                 case 1:
-                    System.out.println("\n res = " +mat_1.suma(mat_2));
+                    mat_1 = entrada("uno");
+                    mat_2 = entrada("dos");
+                    System.out.println(mat_1.suma(mat_2));
                     break;
                 case 2:
-                    System.out.println("\n res = " + mat_1.resta(mat_2));
+                    mat_1 = entrada("uno");
+                    mat_2 = entrada("dos");
+                    System.out.println(mat_1.resta(mat_2));
                     break;
                 case 3:
-                    System.out.println("\n res = " + mat_1.multi(mat_2));
+                    mat_1 = entrada("uno");
+                    mat_2 = entrada("dos");
+                    System.out.println(mat_1.multi(mat_2));
                     break;
                 case 4:
-                    System.out.println("\n res = " + mat_1.tras());
+                    mat_1 = entrada(null);
+                    System.out.println(mat_1.tras());
                     break;
-                /*case 5:
-                    System.out.println("\n res:\n" + mat_1.inv());
-                    break;*/
-                /*case 6:
-                    System.out.println("\n res:\n" + mat_1.deter(mat_2));
-                    break;*/
+                case 5:
+                    mat_1 = entrada(null);
+                    System.out.println(mat_1.inv());
+                    break;
+                case 6:
+                    mat_1 = entrada(null);
+                    System.out.println(mat_1.deter(mat_1));
+                    break;
                     
             }
         }while(opc!=9);
     }
     
-    public Procedimiento entrada(){
+    public Procedimiento entrada(String lista){
         
-        System.out.println("ingresar tamaño de la  matriz");
+        System.out.println("ingresar tamaño de la  matriz "+lista);
         int tamaño = in.nextInt();
         
         Procedimiento mat = new Procedimiento(tamaño);
