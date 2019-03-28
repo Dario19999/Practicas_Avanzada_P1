@@ -135,7 +135,7 @@ class Procedimiento {
     public Procedimiento inv(){
      
         if(this.matriz.length == this.matriz[0].length){
-        double [][] r = new double [this.matriz.length*2][this.matriz[0].length*2];
+        double [][] r = new double [this.matriz.length][this.matriz[0].length*2];
         for (j = 0; j < this.matriz[0].length*2; j++) {
             for (i = 0; i < this.matriz.length; i++) {
                 r[i][j] = (j < this.matriz[0].length) ? this.matriz[i][j] : (j - this.matriz[0].length != i) ? 0 : 1;
