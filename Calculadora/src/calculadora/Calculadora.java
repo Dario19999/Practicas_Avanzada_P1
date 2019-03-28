@@ -3,23 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ventanas_formularios;
+package calculadora;
 
 /**
  *
  * @author dario
  */
-public class Ventanas_Formularios {
-    
+public class Calculadora {
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Form2 formulario = new Form2();
+        Form formulario = new Form();
         formulario.setVisible(true);
-        
-        
     }
     
 }
