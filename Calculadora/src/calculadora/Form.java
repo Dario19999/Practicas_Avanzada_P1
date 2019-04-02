@@ -140,6 +140,34 @@ public class Form extends JFrame implements ActionListener {
             op = "+";
         }
     }
+    //--------------------------¿'0p9olpñ¿0ñ'+}¿
+   45[operaciones]------------------------------
+    private void menos(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+            op = "-";
+        }
+    }
+    
+    private void por(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+            op = "*";
+        }
+    }
+    
+    private void entre(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+            op = "/";
+        }
+    }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
@@ -165,6 +193,12 @@ public class Form extends JFrame implements ActionListener {
             cero();
         }else if(ae.getSource()==botones[3][0]){
             mas();
+        }else if(ae.getSource()==botones[3][1]){
+            menos();
+        }else if(ae.getSource()==botones[3][2]){
+            por();
+        }else if(ae.getSource()==botones[3][3]){
+            entre();
         }
     }
 
