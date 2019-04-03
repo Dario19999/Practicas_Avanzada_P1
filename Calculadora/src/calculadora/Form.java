@@ -18,13 +18,47 @@ import javax.swing.JTextField;
  */
 public class Form extends JFrame implements ActionListener {
     
-    private JButton botones[][] = new JButton[4][4];
+    private JButton btn_1;
+    private JButton btn_2;
+    private JButton btn_3;
+    private JButton btn_4;
+    private JButton btn_5;
+    private JButton btn_6;
+    private JButton btn_7;
+    private JButton btn_8;
+    private JButton btn_9;
+    private JButton btn_0;
+    private JButton btn_igual;
+    private JButton btn_mas;
+    private JButton btn_menos;
+    private JButton btn_por;
+    private JButton btn_entre;
+    private JButton btn_i;
+    
     private JTextField screen;
     
     public String term1, term2, termi1, termi2;
     public String op;
     
     public Form(){
+        
+        btn_1 = new JButton("1");
+        btn_2 = new JButton("2");
+        btn_3 = new JButton("3");
+        btn_4 = new JButton("4");
+        btn_5 = new JButton("5");
+        btn_6 = new JButton("6");
+        btn_7 = new JButton("7");
+        btn_8 = new JButton("8");
+        btn_9 = new JButton("9");
+        btn_0 = new JButton("0");
+        btn_igual = new JButton("=");
+        btn_mas = new JButton("+");
+        btn_menos = new JButton("-");
+        btn_por = new JButton("*");
+        btn_entre = new JButton("/");
+        btn_i = new JButton("i");
+        
         screen = new JTextField();
         config();
     }
@@ -36,30 +70,89 @@ public class Form extends JFrame implements ActionListener {
         this.getContentPane().setBackground(Color.black);
         this.setLayout(null);
         
-        String button_content [][] = {
-            {"7","8","9","+"},
-            {"4","5","6","-"},
-            {"1","2","3","*"},
-            {"i","0","=","/"}
-            
-        };
-        
-        int x_btn = 50, y_btn = 150;
-        
-        for(int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                botones[i][j] = new JButton(button_content[j][i]);
-                botones[i][j].setBounds(x_btn+i*75, y_btn+j*75, 50, 50);
-                add(botones[i][j]);
-                botones[i][j].addActionListener(this);
-                botones[i][j].setBackground(Color.orange);
-            }
-        }
-        
-        botones[2][3].setBackground(Color.red);
         add(screen);
         screen.setEditable(false);
         screen.setBounds(50, 50, 275, 50);
+        
+        add(btn_1);
+        btn_1.setBounds(50, 300, 50, 50);
+        btn_1.setBackground(Color.orange);
+        btn_1.addActionListener(this);
+        
+        add(btn_2);
+        btn_2.setBounds(125, 300, 50, 50);
+        btn_2.setBackground(Color.orange);
+        btn_2.addActionListener(this);
+        
+        add(btn_3);
+        btn_3.setBounds(200, 300, 50, 50);
+        btn_3.setBackground(Color.orange);
+        btn_3.addActionListener(this);
+        
+        add(btn_4);
+        btn_4.setBounds(50, 225, 50, 50);
+        btn_4.setBackground(Color.orange);
+        btn_4.addActionListener(this);
+        
+        add(btn_5);
+        btn_5.setBounds(125, 225, 50, 50);
+        btn_5.setBackground(Color.orange);
+        btn_5.addActionListener(this);
+        
+        add(btn_6);
+        btn_6.setBounds(200, 225, 50, 50);
+        btn_6.setBackground(Color.orange);
+        btn_6.addActionListener(this);
+        
+        add(btn_7);
+        btn_7.setBounds(50, 150, 50, 50);
+        btn_7.setBackground(Color.orange);
+        btn_7.addActionListener(this);
+        
+        add(btn_8);
+        btn_8.setBounds(125, 150, 50, 50);
+        btn_8.setBackground(Color.orange);
+        btn_8.addActionListener(this);
+        
+        add(btn_9);
+        btn_9.setBounds(200, 150, 50, 50);
+        btn_9.setBackground(Color.orange);
+        btn_9.addActionListener(this);
+        
+        add(btn_0);
+        btn_0.setBounds(125, 375, 50, 50);
+        btn_0.setBackground(Color.orange);
+        btn_0.addActionListener(this);
+        
+        add(btn_igual);
+        btn_igual.setBounds(200, 375, 50, 50);
+        btn_igual.setBackground(Color.red);
+        btn_igual.addActionListener(this);
+        
+        add(btn_mas);
+        btn_mas.setBounds(275, 375, 50, 50);
+        btn_mas.setBackground(Color.orange);
+        btn_mas.addActionListener(this);
+        
+        add(btn_menos);
+        btn_menos.setBounds(275, 300, 50, 50);
+        btn_menos.setBackground(Color.orange);
+        btn_menos.addActionListener(this);
+        
+        add(btn_por);
+        btn_por.setBounds(275, 225, 50, 50);
+        btn_por.setBackground(Color.orange);
+        btn_por.addActionListener(this);
+       
+        add(btn_entre);
+        btn_entre.setBounds(275, 150, 50, 50);
+        btn_entre.setBackground(Color.orange);
+        btn_entre.addActionListener(this);
+        
+        add(btn_i);
+        btn_i.setBounds(50, 375, 50, 50);
+        btn_i.setBackground(Color.orange);
+        btn_i.addActionListener(this);
     }
     
     public void siete(){
@@ -136,12 +229,12 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
+            term1 = screen.getText();
             screen.setText("");
             op = "+";
         }
     }
-    //--------------------------¿'0p9olpñ¿0ñ'+}¿
-   45[operaciones]------------------------------
+
     private void menos(){
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
@@ -169,36 +262,57 @@ public class Form extends JFrame implements ActionListener {
         }
     }
     
+    private void igual(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+            op = "=";
+        }
+    }
+    
+    private void i(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText(screen.getText()+"i");
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource()==botones[0][0]){
+        if(ae.getSource()==btn_7){
             siete();
-        }else if(ae.getSource()==botones[1][0]){
+        }else if(ae.getSource()==btn_8){
             ocho();
-        }else if(ae.getSource()==botones[2][0]){
+        }else if(ae.getSource()==btn_9){
             nueve();
-        }else if(ae.getSource()==botones[0][1]){
+        }else if(ae.getSource()==btn_4){
             cuatro();
-        }else if(ae.getSource()==botones[1][1]){
+        }else if(ae.getSource()==btn_5){
             cinco();
-        }else if(ae.getSource()==botones[2][1]){
+        }else if(ae.getSource()==btn_6){
             seis();
-        }else if(ae.getSource()==botones[0][2]){
+        }else if(ae.getSource()==btn_1){
             uno();
-        }else if(ae.getSource()==botones[1][2]){
+        }else if(ae.getSource()==btn_2){
             dos();
-        }else if(ae.getSource()==botones[2][2]){
+        }else if(ae.getSource()==btn_3){
             tres();
-        }else if(ae.getSource()==botones[1][3]){
+        }else if(ae.getSource()==btn_0){
             cero();
-        }else if(ae.getSource()==botones[3][0]){
+        }else if(ae.getSource()==btn_mas){
             mas();
-        }else if(ae.getSource()==botones[3][1]){
+        }else if(ae.getSource()==btn_menos){
             menos();
-        }else if(ae.getSource()==botones[3][2]){
+        }else if(ae.getSource()==btn_por){
             por();
-        }else if(ae.getSource()==botones[3][3]){
+        }else if(ae.getSource()==btn_entre){
             entre();
+        }else if(ae.getSource()==btn_igual){
+            igual();
+        }else if(ae.getSource()==btn_i){
+            i();
         }
     }
 
