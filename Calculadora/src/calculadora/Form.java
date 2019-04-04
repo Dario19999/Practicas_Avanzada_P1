@@ -38,7 +38,8 @@ public class Form extends JFrame implements ActionListener {
     private JTextField screen;
     
     public String term1, term2, termi1, termi2;
-    public String op;
+    public String op1, op2, op3;
+    int cont = 0;
     
     public Form(){
         
@@ -155,6 +156,7 @@ public class Form extends JFrame implements ActionListener {
         btn_i.addActionListener(this);
     }
     
+    //numeros
     public void siete(){
         if(screen.getText().equals("Error")){
             screen.setText("");
@@ -169,113 +171,130 @@ public class Form extends JFrame implements ActionListener {
         screen.setText(screen.getText()+"8");
     }
    
-    private void nueve() {
+    public void nueve() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
       screen.setText(screen.getText()+"9");
     }
 
-    private void cuatro() {
+    public void cuatro() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
        screen.setText(screen.getText()+"4");
     }
 
-    private void cinco() {
+    public void cinco() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
         screen.setText(screen.getText()+"5");
     }
 
-    private void seis() {
+    public void seis() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
         screen.setText(screen.getText()+"6");
     }
 
-    private void uno() {
+    public void uno() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
        screen.setText(screen.getText()+"1");
     }
 
-    private void dos() {
+    public void dos() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
       screen.setText(screen.getText()+"2");
     }
 
-    private void tres() {
+    public void tres() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
         screen.setText(screen.getText()+"3");
     }
 
-    private void cero() {
+    public void cero() {
         if(screen.getText().equals("Error")){
             screen.setText("");
         }
         screen.setText(screen.getText()+"0");
     }
     
-    private void mas() {
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
-        }else{
-            term1 = screen.getText();
-            screen.setText("");
-            op = "+";
-        }
-    }
-
-    private void menos(){
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
-        }else{
-            screen.setText("");
-            op = "-";
-        }
-    }
-    
-    private void por(){
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
-        }else{
-            screen.setText("");
-            op = "*";
-        }
-    }
-    
-    private void entre(){
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
-        }else{
-            screen.setText("");
-            op = "/";
-        }
-    }
-    
-    private void igual(){
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
-        }else{
-            screen.setText("");
-            op = "=";
-        }
-    }
-    
-    private void i(){
+    public void i(){
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
             screen.setText(screen.getText()+"i");
+        }
+    }
+    //operaciones
+    public void mas() {
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            contComparation();
+            screen.setText("");
+            
+        }
+    }
+
+    public void menos(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+        }
+    }
+    
+    public void por(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+        }
+    }
+    
+    public void entre(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+        }
+    }
+    
+    public void igual(){
+        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
+            screen.setText("Error");
+        }else{
+            screen.setText("");
+        }
+    }
+    
+    public void contComparation(){
+        if(cont == 3){
+            cont = 0;
+        }
+        cont+=1;
+        switch(cont){
+            case 1:
+                term1 = screen.getText();
+                break;
+            case 2:
+                if(screen.getText().endsWith("i")){
+                    termi1 = screen.getText();
+                }else{
+                    screen.setText("Error");
+                }
+                break;
+            case 3:
+                term2 = screen.getText();
         }
     }
     
