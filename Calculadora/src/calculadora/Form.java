@@ -38,7 +38,7 @@ public class Form extends JFrame implements ActionListener {
     private JTextField screen;
     
     public String term1, term2, termi1, termi2;
-    public String op1, op2, op3;
+    public char op, op1, op2, op3;
     int cont = 0;
     
     public Form(){
@@ -239,7 +239,8 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
-            contComparation();
+            op = '+';
+            contComparation(op);
             screen.setText("");
             
         }
@@ -249,6 +250,8 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
+            op = '-';
+            contComparation(op);
             screen.setText("");
         }
     }
@@ -257,6 +260,8 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
+            op = '*';
+            contComparation(op); 
             screen.setText("");
         }
     }
@@ -265,6 +270,8 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
+            op = '/';
+            contComparation(op);
             screen.setText("");
         }
     }
@@ -273,11 +280,13 @@ public class Form extends JFrame implements ActionListener {
         if(screen.getText().isEmpty() || screen.getText().equals("Error")){
             screen.setText("Error");
         }else{
+            termi2 = screen.getText();
+            Calculo calc = new Calculo(term1, term2, termi1, termi2, op1, op2, op3);
             screen.setText("");
         }
     }
     
-    public void contComparation(){
+    public void contComparation(char op){
         if(cont == 3){
             cont = 0;
         }
@@ -285,16 +294,19 @@ public class Form extends JFrame implements ActionListener {
         switch(cont){
             case 1:
                 term1 = screen.getText();
+                op1 = op;
                 break;
             case 2:
                 if(screen.getText().endsWith("i")){
                     termi1 = screen.getText();
+                    op2 = op;
                 }else{
                     screen.setText("Error");
                 }
                 break;
             case 3:
                 term2 = screen.getText();
+                op3 = op;
         }
     }
     
@@ -334,7 +346,4 @@ public class Form extends JFrame implements ActionListener {
             i();
         }
     }
-
-    
-    
 }
