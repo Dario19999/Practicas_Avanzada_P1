@@ -34,11 +34,12 @@ public class Form extends JFrame implements ActionListener {
     private JButton btn_por;
     private JButton btn_entre;
     private JButton btn_i;
+    private JButton btn_ce;
     
     private JTextField screen;
     
     public String term1, term2, termi1, termi2;
-    public char op, op1, op2, op3;
+    public char op, op1, op2, op3, minus;
     int cont = 0;
     
     public Form(){
@@ -59,6 +60,7 @@ public class Form extends JFrame implements ActionListener {
         btn_por = new JButton("*");
         btn_entre = new JButton("/");
         btn_i = new JButton("i");
+        btn_ce = new JButton("CE");
         
         screen = new JTextField();
         config();
@@ -66,14 +68,14 @@ public class Form extends JFrame implements ActionListener {
     
     public void config(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400,500);
+        this.setSize(460,500);
         this.setTitle("Calculadora");
         this.getContentPane().setBackground(Color.black);
         this.setLayout(null);
         
         add(screen);
         screen.setEditable(false);
-        screen.setBounds(50, 50, 275, 50);
+        screen.setBounds(50, 50, 350, 50);
         
         add(btn_1);
         btn_1.setBounds(50, 300, 50, 50);
@@ -149,6 +151,11 @@ public class Form extends JFrame implements ActionListener {
         btn_entre.setBounds(275, 150, 50, 50);
         btn_entre.setBackground(Color.orange);
         btn_entre.addActionListener(this);
+        
+        add(btn_ce);
+        btn_ce.setBounds(350, 150, 50, 125);
+        btn_ce.setBackground(Color.orange);
+        btn_ce.addActionListener(this);
         
         add(btn_i);
         btn_i.setBounds(50, 375, 50, 50);
@@ -247,8 +254,8 @@ public class Form extends JFrame implements ActionListener {
     }
 
     public void menos(){
-        if(screen.getText().isEmpty() || screen.getText().equals("Error")){
-            screen.setText("Error");
+        if(screen.getText().isEmpty()){
+            screen.setText("-");
         }else{
             op = '-';
             contComparation(op);
@@ -282,16 +289,33 @@ public class Form extends JFrame implements ActionListener {
         }else{
             termi2 = screen.getText();
             Calculo calc = new Calculo(term1, term2, termi1, termi2, op1, op2, op3);
-            screen.setText("");
+            
+            calc.calcular();
+            screen.setText(calc.res);
         }
     }
     
+    public void ce(){
+        screen.setText("");
+        term1 = null;
+        term2 = null;
+        termi1 = null;
+        termi2 = null;
+        op = '\u0000';
+        op1 = '\u0000';
+        op2 = '\u0000';
+        cont = 0;
+    }
+    
     public void contComparation(char op){
+        
         if(cont == 3){
             cont = 0;
         }
+                
         cont+=1;
-        switch(cont){
+        
+        switch(cont){              
             case 1:
                 term1 = screen.getText();
                 op1 = op;
@@ -305,8 +329,10 @@ public class Form extends JFrame implements ActionListener {
                 }
                 break;
             case 3:
+                
                 term2 = screen.getText();
                 op3 = op;
+                break;
         }
     }
     
@@ -344,6 +370,8 @@ public class Form extends JFrame implements ActionListener {
             igual();
         }else if(ae.getSource()==btn_i){
             i();
+        }else if(ae.getSource()==btn_ce){
+            ce();
         }
     }
 }
