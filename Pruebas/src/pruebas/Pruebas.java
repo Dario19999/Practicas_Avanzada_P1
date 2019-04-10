@@ -17,10 +17,11 @@ public class Pruebas {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        String num = "45";
-        double numer;
+        String termi1 = "-5";
         
-        numer = Integer.parseInt(num);
+        termi1 = termi1.substring(0, 1);
+        
+        System.out.println(termi1);
         
     }
     

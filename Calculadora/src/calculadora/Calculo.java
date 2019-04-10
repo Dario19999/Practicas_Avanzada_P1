@@ -10,7 +10,7 @@ package calculadora;
  * @author dario
  */
 public class Calculo {
-    String term1, term2, termi1, termi2, res, resi;
+    String term1, term2, termi1, termi2, res;
     char op1, op2, op3;
     double rr, ri;
 
@@ -27,6 +27,7 @@ public class Calculo {
     public String calcular(){
         
         double t1, t2, ti1, ti2;
+       
         termi1 = termi1.substring(0, termi1.length()-1);
         termi2 = termi2.substring(0, termi2.length()-1);
         
@@ -34,18 +35,65 @@ public class Calculo {
         t2 = Integer.parseInt(term2);
         ti1 = Integer.parseInt(termi1);
         ti2 = Integer.parseInt(termi2);
+               
+        t1 = (term1.substring(0, 1) == "-")? -t1:t1;
         
         switch(op2){
             case '+':
-                if(op2 == '-'){
-                    t2 = t2*-1;
-                    ti2 = ti2*-1;
+                
+                if(op3 != '-'){
+                    ri = (op1 == '-')? -ti1+ti2:ti1+ti2;
+                }else{
+                    ri = (op1 == '-')? -ti1-ti2:ti1-ti2;
+                }
+            
+                rr = t1 + t2;           
+                
+                if(rr == 0 && ri == 0){
+                    res = "0";
+                }else{
+                    res = (ri < 0)? (Double.toString(rr) + Double.toString(ri)+"i") : (Double.toString(rr) + " + " + Double.toString(ri)+"i");
+                }
+   
+                break;
+            
+            case '-':
+
+                if(op3 != '-'){
+                    ri = (op1 == '-')? -ti1-ti2:ti1-ti2;
+                }else{
+                    ri = (op1 == '-')? -ti1+ti2:ti1+ti2;
                 }
                 
-                rr = t1 + t2;
-                ri = ti1 + ti2;
-            
-                res = Integer.toString(rr);
+                rr = t1 - t2;
+                
+                if(rr == 0 && ri == 0){
+                    res = "0";
+                }else{
+                    res = (ri < 0)? (Double.toString(rr) + Double.toString(ri)+"i") : (Double.toString(rr) + " + " + Double.toString(ri)+"i");
+                }
+                
+                break;
+                
+           /* case '*':
+                
+                if(op3 != '-'){
+                    ri = (op1 == '-')? ;
+                    
+                }else{
+                    ri = (op1 == '-')? -ti1*t2*-ti2:ti1*t2*-ti2;
+                    
+                }
+                
+                rr = t1*t2;
+                
+                if(rr == 0 && ri == 0){
+                    res = "0";
+                }else{
+                    res = (ri < 0)? (Double.toString(rr) + Double.toString(ri)+"i") : (Double.toString(rr) + " + " + Double.toString(ri)+"i");
+                }*/
         }
+        
+        return res;
     }
 }
