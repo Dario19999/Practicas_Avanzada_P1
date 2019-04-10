@@ -22,20 +22,25 @@ public class Mensajon {
     public static void main(String[] args) throws IOException {
         // TOO code application logic here
         
-        byte[] x = new byte[20];
-        byte[] y = "Hola".getBytes(StandardCharsets.UTF_8);
-        
         try{
-        
-        Socket c1 = new Socket ("192.168.84.177", 5000);
-        
-        c1.getOutputStream().write(y);
-        
-
-        }catch(IOException e){
-            System.out.println("No se pudo :(");
-        }
-        
+            Socket gutiServer = new Socket("192.168.84.75", 5000);
+            String msgEnviado = "Mamamela amor";
+            byte[] msgRecibido = new byte[500];
+            
+           /* Thread.sleep(1000);
+            gutiServer.getOutputStream().write(msgEnviado.getBytes(StandardCharsets.UTF_8));
+            System.out.println("mensje enviado");*/
+            
+            while(new String (msgRecibido) != "exit"){
+                gutiServer.getInputStream().read(msgRecibido);
+                System.out.println(new String(msgRecibido, StandardCharsets.UTF_8));
+            }
+            
+            Thread.sleep(1000);
+            gutiServer.close();
+            
+        }catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }    
     }
-    
 }
