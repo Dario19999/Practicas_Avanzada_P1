@@ -16,7 +16,7 @@ public class Calculadora {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Form formulario = new Form();
+        Form2 formulario = new Form2();
         formulario.setVisible(true);
     }
     
