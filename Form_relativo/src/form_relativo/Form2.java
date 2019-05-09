@@ -1,70 +1,102 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package form_relativo;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
-/**
- *
- * @author dario
- */
 public class Form2 extends JFrame{
-    private JButton boton1;
-    private JButton boton2;
-    private JButton boton3;
-    private JButton boton4;
+
+    JTextField Usr;
+    JTextField Pass;
+    JButton SignIn;
+    JButton SignUp;
+    GroupLayout groupLayout;
+    JLabel UsrLabel;
+    JLabel PassLabel;
 
     public Form2(){
-        boton1 = new JButton("1");
-        boton2 = new JButton("2");
-        boton3 = new JButton("3");
-        boton4 = new JButton("4");
-    
+        this.setTitle("CocoChat-Registro");
+        this.getContentPane().setBackground(Color.CYAN);
+        this.setVisible(true);
+        this.setMinimumSize(new Dimension(500,700));
+        this.setPreferredSize(new Dimension(500, 700));
+        this.revalidate();
+        this.setResizable(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        groupLayout = new GroupLayout(this.getContentPane());
+        componentConfig();
+        groupConfig();
+        this.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                System.out.println(e.getComponent().getBounds().getSize());
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+
+            }
+        });
+    }
+
+    public void componentConfig(){
+        Usr = new JTextField();
+        Pass = new JTextField();
+        SignIn = new JButton("Sign In");
+        SignUp = new JButton("Sign Up");
+        UsrLabel = new JLabel("User:");
+        PassLabel = new JLabel("Password:");
         
-        GroupLayout orden = new GroupLayout(this.getContentPane());
-        orden.setAutoCreateContainerGaps(true);
-        orden.setAutoCreateGaps(true);
+        SignIn.setBackground(Color.MAGENTA);
+        SignUp.setBackground(Color.MAGENTA);
         
-        //perspetiva horizontal
-        orden.setHorizontalGroup(
-            orden.createParallelGroup()
-                .addGroup(orden.createSequentialGroup()
-                    .addComponent(boton1,100,100,100)
-                    .addComponent(boton2,25,25,25)
+        SignIn.addActionListener(e -> {
+            String user = Usr.getText();
+            String pwd = Pass.getText();
+        });
+    }
+
+    public void groupConfig(){
+        groupLayout.setHorizontalGroup(
+            groupLayout.createParallelGroup()
+                .addComponent(UsrLabel)
+                .addComponent(Usr, 450,450,450)
+                .addComponent(PassLabel)
+                .addComponent(Pass, 450,450,450)
+                .addGroup(groupLayout.createSequentialGroup()
+                    .addComponent(SignIn, 100,100,100)
+                    .addComponent(SignUp,100,100,100)
                 )
-                .addGroup(orden.createSequentialGroup()
-                    .addComponent(boton3,50,50,50)
-                    .addComponent(boton4,75,75,75)
+                        
+        );
+
+        groupLayout.setVerticalGroup(
+            groupLayout.createSequentialGroup()
+                .addComponent(UsrLabel)
+                .addComponent(Usr, 50,50,50)
+                .addComponent(PassLabel)
+                .addComponent(Pass, 50,50,50)
+                .addGroup(groupLayout.createParallelGroup()
+                    .addComponent(SignIn,50,50,50)    
+                    .addComponent(SignUp,50,50,50)
                 )
         );
-        
-        //perspectiva vertical
-        orden.setVerticalGroup(
-            orden.createSequentialGroup()
-                .addGroup(orden.createParallelGroup()
-                    .addComponent(boton1)
-                    .addComponent(boton2)
-                )
-                .addGroup(orden.createParallelGroup()
-                    .addComponent(boton3)
-                    .addComponent(boton4)
-                )
-            
-        );
-        
-        this.setLayout(orden);
-        config();
-        pack();
+        groupLayout.setAutoCreateContainerGaps(true);
+        groupLayout.setAutoCreateGaps(true);
+        this.setLayout(groupLayout);
+        this.pack();
     }
-    
-    public void config(){
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setTitle("Form Relativo");
-    }
-    
 }
