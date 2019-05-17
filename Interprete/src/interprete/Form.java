@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import static java.util.Collections.list;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,16 +25,21 @@ import javax.swing.JTextField;
  */
 public class Form extends JFrame implements ActionListener {
     
+    private ArrayList<String> orders = new ArrayList<String>();
+    private ArrayList<String> variable = new ArrayList<String>();
+    private ArrayList<String> operator_i = new ArrayList<String>();
+    private ArrayList<String> variable_2 = new ArrayList<String>();
+    
     private JButton btn_run;
     private JButton btn_compile;
     private JTextArea input;
-    private JTextField output;
+    private JTextArea output;
     
     private String fun;
     private String iterator, value, operator_f, until, step;
-    private String variable, operator_i, variable_2;
-    private String[] action = {"hola_izq", "hola_der", "patada_izq", 
-    "patada_der", "bailar", "split", "wave", "si", "no", "caminar_izq"};
+    
+    private String[] actionL = {"hola_izq", "hola_der", "patada_izq", 
+    "patada_der", "bailar", "split", "wave", "si", "no", "color", "end_if", "end_for"};
     
     private boolean endFor = false, endIf = false;
     
@@ -44,7 +50,7 @@ public class Form extends JFrame implements ActionListener {
         btn_run = new JButton("Correr");
         btn_compile = new JButton("Compilar");
         input = new JTextArea();
-        output = new JTextField();
+        output = new JTextArea();
         
         config();
     }
@@ -67,16 +73,17 @@ public class Form extends JFrame implements ActionListener {
         btn_compile.addActionListener(this);
         
         add(output);
-        output.setBounds(500, 0, 250, 200);
+        output.setBounds(500, 0, 250, 350);
+        output.setBackground(Color.LIGHT_GRAY);
+        output.setCaretPosition(0);
         output.setEditable(false);
         
         add(input);
-        input.setBounds(500,210,250,290);
+        input.setBounds(500,360,250,90);
         input.setBackground(Color.LIGHT_GRAY);
-        input.setCaretPosition(0);
-        
+        input.setCaretPosition(0);     
     }
-
+    
     public void run(){
         
         
@@ -85,40 +92,41 @@ public class Form extends JFrame implements ActionListener {
     
     public void compile(){
         
-        int cont = 0;
-        
        fun = input.getText();
        String components[] = fun.split(" ");
        
-       for(int j = 1; j <= components.length; j++){
-           cont++;
-        }
-       input.setText("");
-       
-       switch(components[0]){
-           case "for":
-               iterator = components[1];
-               value = components[2];
-               operator_f = components[3];
-               until = components[4];
-               step = components[5];
-               
-               output.setText(components[0] + "(" + iterator + "=" + value + "; " + operator_f + until +"; " + step +")");
-               
-            break;
-               
-            case "if":
-               variable = components[1];
-               operator_i = components[2];
-               variable_2 = components[3];
-               
-               output.setText(output.getText() + "\n" + components[0] + "(" + variable + operator_i + variable_2 + ")");
-               
-            break;
-               
-       }
-        
+        if(components.length > 1){
+            switch(components[0]){
+                case "for":
+                    iterator = components[1];
+                    value = components[2];
+                    operator_f = components[3];
+                    until = components[4];
+                    step = components[5];
 
+                    output.setText(output.getText()+"\n"+components[0] + "(" + iterator + "=" + value + "; " + iterator + operator_f + until +"; " + step +")");
+                break;
+
+                case "if":
+                    
+                    variable.add(components[1]);
+                    operator_i.add(components[2]);
+                    variable_2.add(components[3]);
+                    output.setText(output.getText()+"\n"+components[0] + "(" + variable.get(cont) + operator_i.get(cont) + variable_2.get(cont) + ")");
+                    cont+=1;
+                    
+                break;
+            }
+        }else{
+            for(int i = 0; i <13; i++){
+                if(components[0] == actionL[i]){
+                    orders.add(actionL[i]);
+                    output.setText(output.getText() + "\n" + orders);
+                }
+            }
+        }
+      
+       input.setText("");
     }
     
     @Override
@@ -131,7 +139,7 @@ public class Form extends JFrame implements ActionListener {
         
         
     }
-
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g); 
