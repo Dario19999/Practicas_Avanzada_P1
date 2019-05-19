@@ -11,13 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import static java.util.Collections.list;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
-
 
 /**
  *
@@ -25,29 +24,21 @@ import javax.swing.JTextField;
  */
 public class Form extends JFrame implements ActionListener {
     
-    private ArrayList<String> orders = new ArrayList<String>();
-    private ArrayList<String> variable = new ArrayList<String>();
-    private ArrayList<String> operator_i = new ArrayList<String>();
-    private ArrayList<String> variable_2 = new ArrayList<String>();
-    
-    private JButton btn_run;
     private JButton btn_compile;
     private JTextArea input;
     private JTextArea output;
+    private Color color = new Color(0,0,0);
     
     private String fun;
-    private String iterator, value, operator_f, until, step;
+    private String iterator, operator;
+    private String[] line;
     
-    private String[] actionL = {"hola_izq", "hola_der", "patada_izq", 
-    "patada_der", "bailar", "split", "wave", "si", "no", "color", "end_if", "end_for"};
+    private int intIterator = 0, cont = 0, cont_enter, value, until, variable, variable_2;
     
-    private boolean endFor = false, endIf = false;
-    
-    private int intIterator = 0, cont = 0;
+    int ra = 0, la = 0 ,rlx = 0, rly = 0, llx = 0, lly = 0, hx = 0, hy = 0;
     
     public Form(){
         
-        btn_run = new JButton("Correr");
         btn_compile = new JButton("Compilar");
         input = new JTextArea();
         output = new JTextArea();
@@ -61,11 +52,6 @@ public class Form extends JFrame implements ActionListener {
         this.setTitle("Dibujo");
         this.getContentPane().setBackground(Color.white);
         this.setLayout(null);
- 
-        add(btn_run);
-        btn_run.setBounds(575,510 , 100, 30);
-        btn_run.setBackground(Color.red);
-        btn_run.addActionListener(this);
         
         add(btn_compile);
         btn_compile.setBounds(575,550 , 100, 30);
@@ -84,72 +70,174 @@ public class Form extends JFrame implements ActionListener {
         input.setCaretPosition(0);     
     }
     
-    public void run(){
-        
-        
-        
+    public void run(String[] line){
+        for(int i = 1; i < line.length; i++){
+            switch(line[i]){
+                case "hola_der":
+                    ra = ra-40;
+                    repaint();
+                break;
+                
+                case "hola_izq":
+                    la = la+40;
+                    repaint();
+                break;
+                
+                case "patada_der":
+                    rlx = rlx+20;
+                    rly = rly-65;
+                    repaint();
+                break;
+                
+                case "patada_izq":
+                    llx = llx-20;
+                    lly = lly-65;
+                    repaint();
+                break;
+                        
+                case "baile":
+                    ra = ra-40;
+                    llx = llx-20;
+                    lly = lly-65;
+                    repaint();
+                    la = la+40;
+                    rlx = rlx+20;
+                    rly = rly-65;
+                    repaint();
+                break;
+                
+                case "wave":
+                    ra = ra-40;
+                    repaint();
+                    la = la+40;
+                    repaint();
+                break;
+                
+                case "split":
+                    rlx = rlx+20;
+                    rly = rly-65;
+                    llx = llx-20;
+                    lly = lly-65;
+                    repaint();
+                break;
+                
+                case "si":
+                    hy=hy+10;
+                    repaint();
+                break;
+                
+                case "no":
+                    hx=hx+10;
+                    repaint();
+                    hx=hx-20;
+                    repaint();
+                break;
+                
+                case "color":
+                    color = new Color(252,128,49);
+                    repaint();
+                break;     
+            }
+        }
     }
     
     public void compile(){
+ 
+        fun = input.getText();
+        String line[] = fun.split("\n");
         
-       fun = input.getText();
-       String components[] = fun.split(" ");
-       
-        if(components.length > 1){
+        for(cont_enter = 0; cont_enter < line.length; cont_enter++){
+            String components[] = line[cont_enter].split(" ");
+
             switch(components[0]){
                 case "for":
                     iterator = components[1];
-                    value = components[2];
-                    operator_f = components[3];
-                    until = components[4];
-                    step = components[5];
-
-                    output.setText(output.getText()+"\n"+components[0] + "(" + iterator + "=" + value + "; " + iterator + operator_f + until +"; " + step +")");
+                    value = Integer.parseInt(components[2]);
+                    operator = components[3];
+                    until = Integer.parseInt(components[4]);
+                    
+                    switch(operator){
+                        case "<":
+                            for(int i = value; i < until; i++){
+                                run(line);
+                            }
+                        break;
+                        
+                        case ">":
+                            for(int i = value; i > until; i--){
+                                run(line);
+                            }
+                        break;
+                        
+                        case "<=":
+                            for(int i = value; i <= until; i++){
+                                run(line);
+                            }
+                        break;
+                        
+                        case ">=":
+                            for(int i = value; i >= until; i--){
+                                run(line);
+                            }
+                        break;
+                    }   
                 break;
 
                 case "if":
+                    variable = Integer.parseInt(components[1]);
+                    operator = components[2];
+                    variable_2 = Integer.parseInt(components[3]);
                     
-                    variable.add(components[1]);
-                    operator_i.add(components[2]);
-                    variable_2.add(components[3]);
-                    output.setText(output.getText()+"\n"+components[0] + "(" + variable.get(cont) + operator_i.get(cont) + variable_2.get(cont) + ")");
-                    cont+=1;
-                    
+                    switch(components[2]){
+                        case "<":
+                            if(variable < variable_2){
+                                run(line);
+                            }
+                        break;
+                        case ">":
+                            if(variable > variable_2){
+                                run(line);
+                            }
+                        break;
+                        case "<=":
+                            if(variable <= variable_2){
+                                run(line);
+                            }
+                        break;
+                        case ">=":
+                            if(variable >= variable_2){
+                                run(line);
+                            }
+                        break;
+                        case "==":
+                            if(variable == variable_2){
+                                run(line);
+                            }
+                        break;
+                    }
                 break;
-            }
-        }else{
-            for(int i = 0; i <13; i++){
-                if(components[0] == actionL[i]){
-                    orders.add(actionL[i]);
-                    output.setText(output.getText() + "\n" + orders);
-                }
+                
             }
         }
-      
-       input.setText("");
+        output.setText(input.getText());
+        input.setText("");
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == btn_compile){
             compile();
-        }else if(ae.getSource() == btn_run){
-            run();
         }
-        
-        
     }
     
     @Override
     public void paint(Graphics g) {
         super.paint(g); 
-        
-        g.drawOval(230, 100, 50, 50);
-        g.drawLine(255, 150, 255, 250);
-        g.drawLine(220, 190, 290, 190);
-        g.drawLine(255, 250, 280, 320);
-        g.drawLine(255, 250, 230, 320);
-       
+        g.setColor(color);
+        g.drawOval(230+hx, 100+hy, 50, 50); //head
+        g.drawLine(255, 150, 255, 250); //torso
+        g.drawLine(220, 190+la, 290, 190+ra); //arms
+        g.drawLine(255, 250, 280+rlx, 320+rly); //right_leg
+        g.drawLine(255, 250, 230+llx, 320+lly); //left_leg   
     }
-    
 }
